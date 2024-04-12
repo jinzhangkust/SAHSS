@@ -1,7 +1,7 @@
 """
 Author: Dr. Jin Zhang 
-E-mail: j.zhang.vision@gmail.com
-Created on 2022.02.09
+E-mail: j.zhang@kust.edu.cn
+Created on 2024.02.09
 """
 
 import torch
