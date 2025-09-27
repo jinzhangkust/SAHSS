@@ -2,7 +2,7 @@
 Author: Dr. Jin Zhang
 E-mail: j.zhang@kust.edu.cn
 Dept: Kunming University of Science and Technology
-Codes for "Data-Driven Industrial Process Monitoring Using Deep Learning Features and Handcrafted Features"
+Codes for "SAHSS: A Sentinel-Based Adaptive Hybrid Soft Sensor for Industrial Process Monitoring"
 Created on 2023.05.04
 """
 
@@ -70,10 +70,9 @@ def set_model(args):
     feats_model = FeatureExtractor()
 
     if args.load_epoch != 1:
-        encoder.load_state_dict(torch.load('./saved_models/encoder_%d.pth' % (args.load_epoch)))  # 2150
-        decoder.load_state_dict(torch.load('./saved_models/decoder_%d.pth' % (args.load_epoch)))  # 2150
-        # dis_img_model.load_state_dict(torch.load('./saved_models/discriminator4x1_%d.pth' % (2150) )) #2150
-        dis_img_model.load_state_dict(torch.load('./saved_models/dis_img_model_%d.pth' % (args.load_epoch)))  # 2150
+        encoder.load_state_dict(torch.load('./saved_models/encoder_%d.pth' % (args.load_epoch))) 
+        decoder.load_state_dict(torch.load('./saved_models/decoder_%d.pth' % (args.load_epoch)))
+        dis_img_model.load_state_dict(torch.load('./saved_models/dis_img_model_%d.pth' % (args.load_epoch))) 
         dis_latent_model.load_state_dict(torch.load('./saved_models/dis_latent_model_%d.pth' % (args.load_epoch)))
 
     encoder = encoder.to(device)
@@ -187,10 +186,6 @@ def train(args, writer, denormalize4img, dataloader, encoder, decoder, dis_laten
         latent_im_advers_losses.update(latent_im_advers_loss.cpu().data, img.size(0))
         dis_im_advers_losses.update(dis_im_advers_loss.cpu().data, img.size(0))
         dis_laten_advers_losses.update(dis_laten_advers_loss.cpu().data, img.size(0))
-
-        # for name, weight in decoder.named_parameters():
-        #    if weight.requires_grad:
-        #        print("weight.grad:", weight.grad.mean(), weight.grad.min(), weight.grad.max())
 
         for _, img in enumerate(dataloader):
             with torch.no_grad():
